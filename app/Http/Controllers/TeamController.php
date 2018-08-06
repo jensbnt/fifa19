@@ -189,12 +189,14 @@ class TeamController extends Controller
 
     public function postTeamGameView($id, Request $request)
     {
-        foreach ($request->input('checked') as $teamplayer_id) {
-            $teamplayer = TeamPlayer::find($teamplayer_id);
-            $teamplayer->games += 1;
-            $teamplayer->goals += $request->input('goals' . $teamplayer_id);
-            $teamplayer->assists += $request->input('assists' . $teamplayer_id);
-            $teamplayer->save();
+        if ($request->has('checked')) {
+            foreach ($request->input('checked') as $teamplayer_id) {
+                $teamplayer = TeamPlayer::find($teamplayer_id);
+                $teamplayer->games += 1;
+                $teamplayer->goals += $request->input('goals' . $teamplayer_id);
+                $teamplayer->assists += $request->input('assists' . $teamplayer_id);
+                $teamplayer->save();
+            }
         }
 
         return redirect()->route('teams.view', ['id' => $id])->with('info', 'New Game added');
