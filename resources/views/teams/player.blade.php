@@ -10,10 +10,16 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="card mb-3">
-                    <div class="card-header text-center">
-                        <a href="{{ route('players.view', ['id' => $teamplayer->player->id]) }}">{{ $teamplayer->player->name }}</a>
+                    <div class="card-header text-center text-muted">
+                        Edit teamplayer
                     </div>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3"><b>Player</b></div>
+                            <div class="col-md-9"><a
+                                        href="{{ route('players.view', ['id' => $teamplayer->player->id]) }}">{{ $teamplayer->player->name }}</a>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-3"><b>Rating</b></div>
                             <div class="col-md-9">{{ $teamplayer->player->rating }}</div>

@@ -16,10 +16,10 @@
                             using a file.</p>
                         <div class="row">
                             <div class="col-md-6">
-                                <a class="btn btn-success btn-block" href="{{ route('players.file') }}">File</a>
+                                <a class="btn btn-primary btn-block" href="{{ route('players.create') }}">Form</a>
                             </div>
                             <div class="col-md-6">
-                                <a class="btn btn-primary btn-block" href="{{ route('players.create') }}">Form</a>
+                                <a class="btn btn-success btn-block" href="{{ route('players.file') }}">File</a>
                             </div>
                         </div>
                     </div>
@@ -48,14 +48,16 @@
                 <div class="card">
                     <div class="card-header"></div>
                     <div class="text-center mt-3">
-                        <img style="width: 20%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSwhmLEZJda6rH-bQSl1FnE_6yTtlZIcydu04SURP2WCMpF6f6">
+                        <img style="width: 20%;"
+                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSwhmLEZJda6rH-bQSl1FnE_6yTtlZIcydu04SURP2WCMpF6f6">
                     </div>
                     <div class="card-body text-center">
                         <h4>Create Trade</h4>
-                        <p>Comming soon...</p>
+                        <p>Keep track of your expenses with our <b>NEW</b> trade manager. This section allows you to
+                            view your current profits.</p>
                         <div class="row">
                             <div class="col-md-6 offset-md-3">
-                                <a class="btn btn-primary btn-block" href="{{ route('trades.index') }}">Form</a>
+                                <a class="btn btn-primary btn-block" href="{{ route('trades.create') }}">Form</a>
                             </div>
                         </div>
                     </div>

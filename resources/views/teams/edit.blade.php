@@ -11,7 +11,7 @@
             <div class="col-md-6 offset-md-3">
                 <div class="card mb-3">
                     <div class="card-header text-center text-muted">
-                        {{ $team->name }}
+                        Edit team
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('teams.edit', ['id' => $team->id]) }}">

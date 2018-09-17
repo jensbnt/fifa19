@@ -4,7 +4,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 offset-md-4 text-center">
-                <h1 class="display-1">Oops!</h1>
+                <div class="text-center mt-3 mb-3">
+                    <img style="width: 70%;"
+                         src="https://i0.wp.com/www.gokartscentralcoast.com/wp-content/uploads/2016/03/whoops.png">
+                </div>
                 <p class="lead">{{ $error }}</p>
 
                 <br>

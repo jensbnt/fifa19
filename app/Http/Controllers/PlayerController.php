@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Player;
 use App\Team;
 use App\TeamPlayer;
+use App\Trade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mockery\Exception;
@@ -19,16 +20,18 @@ class PlayerController extends Controller
         $paginate = 30;
 
         /* Make query */
-        $query = Player::select('*');
+        $query = Player::select('players.*', DB::raw("COUNT(team_players.id) AS teamplayer_count"))
+            ->leftJoin('team_players', 'players.id', 'team_players.player_id')
+            ->groupBy('players.id');
 
         if ($request->input('name') != "")
-            $query->where('name', 'LIKE', $request->input('name') . '%');
+            $query->where('name', 'LIKE', "%" . $request->input('name') . "%");
 
         if ($request->input('position') != "")
-            $query->where('position', 'LIKE', $request->input('position') . '%');
+            $query->where('position', 'LIKE', $request->input('position') . "%");
 
         if ($request->input('cardtype') != "")
-            $query->where('cardtype', 'LIKE', $request->input('cardtype') . '%');
+            $query->where('cardtype', 'LIKE', $request->input('cardtype') . "%");
 
         if ($request->input('minRating') != "")
             $query->where('rating', '>=', $request->input('minRating') + 0);
@@ -51,6 +54,19 @@ class PlayerController extends Controller
                 break;
         }
 
+        switch ($request->input('display')) {
+            case 't':
+                $query->whereIn('players.id', function ($subquery) {
+                    $subquery->select('players.id')
+                        ->from('players')
+                        ->rightJoin('team_players', 'players.id', 'team_players.player_id')
+                        ->groupBy('players.id');
+                });
+                break;
+            default:
+                break;
+        }
+
         $players = $query->paginate($paginate);
 
         /* Get positions */
@@ -70,8 +86,9 @@ class PlayerController extends Controller
 
     public function getPlayersView($id)
     {
-        $player = Player::leftJoin('team_players', 'players.id', '=', 'team_players.player_id')
-            ->select('players.*', DB::raw("SUM(team_players.games) as games, SUM(team_players.goals) as goals, SUM(team_players.assists) as assists, ROUND((SUM(team_players.goals) + SUM(team_players.assists)) / SUM(team_players.games), 3) as ctr"))
+        $player = Player::leftJoin('team_players', 'players.id', 'team_players.player_id')
+            ->leftJoin('trades', 'players.id', 'trades.player_id')
+            ->select('players.*', DB::raw("SUM(team_players.games) as total_games, SUM(team_players.goals) as total_goals, SUM(team_players.assists) as total_assists, (SUM(team_players.goals) + SUM(team_players.assists)) / SUM(team_players.games) as total_ctr, SUM(trades.buy_price) as total_buy, SUM(trades.sell_price) as total_sell, (SUM(trades.sell_price) * 0.95) - SUM(trades.buy_price) as total_profit"))
             ->groupBy('players.id')
             ->where('players.id', '=', $id)
             ->first();
@@ -83,29 +100,40 @@ class PlayerController extends Controller
 
         $teams = Team::all();
 
-        return view('players.view', ['player' => $player, 'teams' => $teams]);
+        $trades = Trade::select('*', DB::raw("sell_price * 0.95 - buy_price AS profit"))
+            ->where('player_id', $id)
+            ->get();
+
+        return view('players.view', ['player' => $player, 'teams' => $teams, 'trades' => $trades]);
     }
 
     public function postPlayersView($id, Request $request)
     {
         if ($request->has('teamid')) {
-            return $this->addToTeam($id, $request->input('teamid'));
+            return $this->addToTeam($id, $request);
+        } else if ($request->has('buy_price')) {
+            return $this->addTrade($id, $request);
         } else if ($request->has('delete')) {
             return $this->deletePlayer($id);
         } else {
-            return redirect()->refresh()->with('fail', 'Please select a player to add');
+            return redirect()->refresh()->with('fail', "Please select a player to add");
         }
     }
 
-    private function addToTeam($playerid, $teamid)
+    private function addToTeam($playerid, $request)
     {
+        $this->validate($request, [
+            'teamid' => 'required',
+        ]);
+        $teamid = $request->input('teamid');
+
         /* Test if player is already on team */
         $teamplayer = TeamPlayer::where('player_id', $playerid)
             ->where('team_id', $teamid)
             ->first();
 
         if ($teamplayer != null)
-            return redirect()->route('players.view', ['id' => $playerid])->with('info', 'This player is already on this team');
+            return redirect()->route('players.view', ['id' => $playerid])->with('info', "This player is already on this team");
 
         /* Test ID's */
         $player = Player::find($playerid);
@@ -118,7 +146,24 @@ class PlayerController extends Controller
         ]);
         $teamplayer->save();
 
-        return redirect()->route('players.view', ['id' => $playerid])->with('info', $player->name . ' added to ' . $team->name);
+        return redirect()->route('players.view', ['id' => $playerid])->with('info', $player->name . " added to " . $team->name);
+    }
+
+    private function addTrade($playerid, $request)
+    {
+        $this->validate($request, [
+            'buy_price' => 'required',
+            'sell_price' => 'required',
+        ]);
+
+        $trade = new Trade([
+            'player_id' => $playerid,
+            'buy_price' => $request->input('buy_price'),
+            'sell_price' => $request->input('sell_price'),
+        ]);
+        $trade->save();
+
+        return redirect()->route('players.view', ['id' => $playerid])->with('info', "New trade created");
     }
 
     private function deletePlayer($id)
@@ -128,7 +173,7 @@ class PlayerController extends Controller
 
         TeamPlayer::where('player_id', $id)->delete();
 
-        return redirect()->route('players.index')->with('info', $player->name . ' deleted');
+        return redirect()->route('players.index')->with('info', $player->name . " deleted");
     }
 
     /** EDIT */
@@ -168,7 +213,7 @@ class PlayerController extends Controller
         $player->club_img_link = $request->input('clubImage');
         $player->save();
 
-        return redirect()->route('players.view', ['id' => $id])->with('info', $player->name . ' updated');
+        return redirect()->route('players.view', ['id' => $id])->with('info', $player->name . " updated");
     }
 
     /** CREATE */
@@ -201,7 +246,7 @@ class PlayerController extends Controller
         ]);
         $player->save();
 
-        return redirect()->route('players.view', ['id' => $player->id])->with('info', $player->name . ' created');
+        return redirect()->route('players.view', ['id' => $player->id])->with('info', $player->name . " created");
     }
 
     /** FILE */
@@ -237,9 +282,9 @@ class PlayerController extends Controller
                             'rating' => $data[1],
                             'position' => $data[2],
                             'cardtype' => $data[3],
-                            'player_img_link' => $data[6],
+                            'player_img_link' => $data[4],
                             'nation_img_link' => $data[5],
-                            'club_img_link' => $data[4],
+                            'club_img_link' => $data[6],
                             'seeded' => 0
                         ]);
                         $player->save();
@@ -251,6 +296,6 @@ class PlayerController extends Controller
             fclose($handle);
         }
 
-        return redirect()->route('players.index')->with('info', 'Bulk completed: ' . $playercount . ' created, ' . $errors . ' failed');
+        return redirect()->route('players.index')->with('info', "Bulk completed: " . $playercount . " created, " . $errors . " failed");
     }
 }

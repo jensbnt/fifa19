@@ -39,7 +39,7 @@ class HomeController extends Controller
         $limit = 30;
 
         /* Make query */
-        if(!$request->has('sort') || $request->input('sort') == "m") {
+        if (!$request->has('sort') || $request->input('sort') == "m") {
             $query = Player::join('team_players', 'players.id', '=', 'team_players.player_id')
                 ->select('players.*', DB::raw("SUM(team_players.games) as games, SUM(team_players.goals) as goals, SUM(team_players.assists) as assists, ROUND((SUM(team_players.goals) + SUM(team_players.assists)) / SUM(team_players.games), 3) as ctr"))
                 ->groupBy('players.id')

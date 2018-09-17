@@ -157,6 +157,30 @@ Route::group(['prefix' => 'trades'], function () {
         'uses' => 'TradeController@getTradesIndex',
         'as' => 'trades.index'
     ]);
+
+    // EDIT
+
+    Route::get('edit/{id}', [
+        'uses' => 'TradeController@getTradesEdit',
+        'as' => 'trades.edit'
+    ]);
+
+    Route::post('edit/{id}', [
+        'uses' => 'TradeController@postTradesEdit',
+        'as' => 'trades.edit'
+    ]);
+
+    // CREATE
+
+    Route::get('create', [
+        'uses' => 'TradeController@getTradesCreate',
+        'as' => 'trades.create'
+    ]);
+
+    Route::post('create', [
+        'uses' => 'TradeController@postTradesCreate',
+        'as' => 'trades.create'
+    ]);
 });
 
 /** CREATE */
@@ -187,8 +211,25 @@ Route::group(['prefix' => 'backup'], function () {
     // INDEX
 
     Route::get('', [
-        'uses' => 'HomeController@getBackupIndex',
+        'uses' => 'BackupController@getBackupIndex',
         'as' => 'backup.index'
+    ]);
+
+    Route::post('', [
+        'uses' => 'BackupController@postBackupIndex',
+        'as' => 'backup.index'
+    ]);
+});
+
+/** API : CURRENTLY NOT IN USE */
+
+Route::group(['prefix' => 'api'], function () {
+    Route::get('players', [
+        'uses' => 'ApiController@apiPlayersIndex'
+    ]);
+
+    Route::get('players/{name}', [
+        'uses' => 'ApiController@apiPlayersGet'
     ]);
 });
 

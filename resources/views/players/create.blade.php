@@ -31,7 +31,7 @@
                             <div class="form-row form-group">
                                 <label for="inputRating" class="col-md-3 col-form-label">Rating</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="inputRating" name="rating" class="form-control"
+                                    <input type="number" id="inputRating" name="rating" class="form-control"
                                            placeholder="Rating"
                                            value="{{ old('rating') }}">
                                 </div>

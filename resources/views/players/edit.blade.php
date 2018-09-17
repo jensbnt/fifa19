@@ -11,7 +11,7 @@
             <div class="col-md-6 offset-md-3">
                 <div class="card mb-3">
                     <div class="card-header text-center text-muted">
-                        {{ $player->name }}
+                        Edit player
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('players.edit', ['id' => $player->id]) }}">
@@ -31,7 +31,7 @@
                             <div class="form-row form-group">
                                 <label for="inputRating" class="col-md-3 col-form-label">Rating</label>
                                 <div class="col-md-9">
-                                    <input type="text" id="inputRating" name="rating" class="form-control"
+                                    <input type="number" id="inputRating" name="rating" class="form-control"
                                            placeholder="Rating"
                                            value="{{ old('rating') != "" ? old('rating') : $player->rating }}">
                                 </div>

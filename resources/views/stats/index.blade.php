@@ -48,19 +48,20 @@
                     <tbody>
                     @for($i = 0; $i < count($players); $i++)
                         <tr>
-                            <th class="align-middle"
-                                scope="row">{{ ($players->currentPage() - 1) * $players->perPage()  + $i + 1 }}</th>
+                            <th class="align-middle" scope="row">
+                                {{ number_format(($players->currentPage() - 1) * $players->perPage()  + $i + 1, 0, ",", ".") }}
+                            </th>
                             <td class="align-middle"><a
                                         href="{{ route('players.view', ['id' => $players[$i]->id]) }}">{{ $players[$i]->name }}</a>
                             </td>
                             <td class="align-middle">{{ $players[$i]->rating }}</td>
                             <td class="align-middle">{{ $players[$i]->position }}</td>
                             <td class="align-middle">{{ $players[$i]->cardtype }}</td>
-                            <td class="align-middle">{{ $players[$i]->games }}</td>
-                            <td class="align-middle">{{ $players[$i]->goals }}</td>
-                            <td class="align-middle">{{ $players[$i]->assists }}</td>
+                            <td class="align-middle">{{ number_format($players[$i]->games, 0, ",", ".") }}</td>
+                            <td class="align-middle">{{ number_format($players[$i]->goals, 0, ",", ".") }}</td>
+                            <td class="align-middle">{{ number_format($players[$i]->assists, 0, ",", ".") }}</td>
                             <td class="align-middle">
-                                <span style="color: {{ $players[$i]->ctr < 0.5 ? "#ff0000" : $players[$i]->ctr < 1 ? "#ffa500" : "#2ca02c" }};">{{ isset($players[$i]->ctr) ? $players[$i]->ctr : "-" }}</span>
+                                <span style="color: {{ $players[$i]->ctr < 0.5 ? "#ff0000" : $players[$i]->ctr < 1 ? "#ffa500" : "#2ca02c" }};">{{ isset($players[$i]->ctr) ? number_format($players[$i]->ctr, 3, ",", ".") : "-" }}</span>
                             </td>
                         </tr>
                     @endfor

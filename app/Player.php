@@ -12,4 +12,9 @@ class Player extends Model
     {
         return $this->hasMany('\App\TeamPlayer', 'player_id', 'id');
     }
+
+    public function trades()
+    {
+        return $this->hasMany('\App\Trade', 'player_id', 'id');
+    }
 }

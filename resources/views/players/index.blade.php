@@ -7,16 +7,23 @@
                 @include('partials.message')
             </div>
         </div>
-        <form class="form-horizontal" method="GET" action="{{ route('players.index') }}">
+        <form id="filterForm" class="form-horizontal" method="GET" action="{{ route('players.index') }}">
             {{ csrf_field() }}
 
             <div class="form-row form-group">
-                <div class="col-md-10 input-group">
+                <div class="col-md-8 input-group">
                     <input type="text" id="inputName" name="name" class="form-control" placeholder="Name"
                            value="{{ isset($_GET['name']) ? $_GET['name'] : "" }}">
                 </div>
+                <label for="inputDisplay" class="col-md-2 col-form-label text-center"><b>Display:</b></label>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-dark btn-block">Sort</button>
+                    <select id="inputDisplay" name="display" class="form-control">
+                        <option value="a" {{ isset($_GET['display']) && $_GET['display'] == "a" ? "selected" : "" }}>All
+                        </option>
+                        <option value="t" {{ isset($_GET['display']) && $_GET['display'] == "t" ? "selected" : "" }}>
+                            Teamed
+                        </option>
+                    </select>
                 </div>
             </div>
             <div class="form-row form-group">
@@ -63,11 +70,19 @@
                     </select>
                 </div>
             </div>
+            <div class="form-row form-group">
+                <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary btn-block">Update list</button>
+                </div>
+                <div class="col-md-4">
+                    <a href="{{ route('players.index') }}" class="btn btn-secondary btn-block">Reset options</a>
+                </div>
+            </div>
         </form>
         <div class="row">
             <div class="col-md">
                 <table class="table table-striped table-hover">
-                    <caption>Players ♦ {{ $players->total() }} results</caption>
+                    <caption>Players ♦ {{ number_format($players->total(), 0, ",", ".") }} results</caption>
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col" style="width: 5%">#</th>
@@ -83,10 +98,11 @@
                     <tbody>
                     @for($i = 0; $i < count($players); $i++)
                         <tr>
-                            <th class="align-middle"
-                                scope="row">{{ ($players->currentPage() - 1) * $players->perPage()  + $i + 1 }}</th>
+                            <th class="align-middle" scope="row">
+                                {{ number_format(($players->currentPage() - 1) * $players->perPage()  + $i + 1, 0, ",", ".") }}
+                            </th>
                             <td class="align-middle">
-                                @if(count($players[$i]->teamPlayers) != 0)
+                                @if($players[$i]->teamplayer_count > 0)
                                     <span class="badge badge-warning">Team</span>
                                 @endif
                             </td>

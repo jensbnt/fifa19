@@ -64,7 +64,7 @@ class TeamController extends Controller
         } else if ($request->has('delete')) {
             return $this->deleteTeam($id);
         } else {
-            return redirect()->refresh()->with('fail', 'Please select a player to delete');
+            return redirect()->refresh()->with('fail', "Please select a player to delete");
         }
     }
 
@@ -73,7 +73,7 @@ class TeamController extends Controller
         $teamplayer = TeamPlayer::find($teamplayerid);
         $teamplayer->delete();
 
-        return redirect()->route('teams.view', ['id' => $teamid])->with('info', $teamplayer->player->name . ' deleted from team');
+        return redirect()->route('teams.view', ['id' => $teamid])->with('info', $teamplayer->player->name . " deleted from team");
     }
 
     private function deleteTeam($id)
@@ -83,7 +83,7 @@ class TeamController extends Controller
 
         TeamPlayer::where('team_id', $id)->delete();
 
-        return redirect()->route('teams.index')->with('info', $team->name . ' deleted');
+        return redirect()->route('teams.index')->with('info', $team->name . " deleted");
     }
 
     /** EDIT */
@@ -114,7 +114,7 @@ class TeamController extends Controller
         $team->club_img_link = $request->input('clubImage');
         $team->save();
 
-        return redirect()->route('teams.view', ['id' => $team->id])->with('info', $team->name . ' updated');
+        return redirect()->route('teams.view', ['id' => $team->id])->with('info', $team->name . " updated");
     }
 
     /** CREATE */
@@ -139,7 +139,7 @@ class TeamController extends Controller
         ]);
         $team->save();
 
-        return redirect()->route('teams.view', ['id' => $team->id])->with('info', $team->name . ' created');
+        return redirect()->route('teams.view', ['id' => $team->id])->with('info', $team->name . " created");
     }
 
     /** PLAYER */
@@ -170,7 +170,7 @@ class TeamController extends Controller
         $teamplayer->assists = $request->input('assists');
         $teamplayer->save();
 
-        return redirect()->route('teams.view', ['id' => $teamplayer->team->id])->with('info', $teamplayer->player->name . ' updated');
+        return redirect()->route('teams.view', ['id' => $teamplayer->team->id])->with('info', $teamplayer->player->name . " updated");
     }
 
     /** GAME */
@@ -199,6 +199,6 @@ class TeamController extends Controller
             }
         }
 
-        return redirect()->route('teams.view', ['id' => $id])->with('info', 'New Game added');
+        return redirect()->route('teams.view', ['id' => $id])->with('info', "New game added");
     }
 }
