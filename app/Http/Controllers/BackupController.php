@@ -19,6 +19,8 @@ class BackupController extends Controller
 
     public function postBackupIndex(Request $request)
     {
+        ini_set('max_execution_time', 300);
+
         if ($request->has('backup-all')) {
             return $this->postBackupAll();
         } else if ($request->has('backup-players')) {
@@ -40,6 +42,8 @@ class BackupController extends Controller
         } else if ($request->has('restore-trades')) {
             return $this->postRestoreTrades();
         }
+
+        ini_set('max_execution_time', -1);
     }
 
     /** POST BACKUP FUNCTIONS */
