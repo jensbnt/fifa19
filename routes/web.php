@@ -176,11 +176,6 @@ Route::group(['prefix' => 'trades'], function () {
         'uses' => 'TradeController@getTradesCreate',
         'as' => 'trades.create'
     ]);
-
-    Route::post('create', [
-        'uses' => 'TradeController@postTradesCreate',
-        'as' => 'trades.create'
-    ]);
 });
 
 /** CREATE */

@@ -14,7 +14,7 @@
                         Edit trade
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('trades.create') }}">
+                        <form method="POST" action="{{ route('trades.edit', ['id' => $trade->id]) }}">
                         {{ csrf_field() }}
 
                         <!-- PLAYER -->
