@@ -24,7 +24,7 @@
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input"
                                                    id="teamplayer{{$teamPlayer->id}}" name="checked[]"
-                                                   value="{{ $teamPlayer->id }}">
+                                                   value="{{ $teamPlayer->id }}" checked>
                                             <label class="custom-control-label"
                                                    for="teamplayer{{$teamPlayer->id}}">{{ $teamPlayer->player->name }}</label>
                                         </div>
