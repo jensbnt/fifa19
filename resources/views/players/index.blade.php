@@ -83,19 +83,15 @@
             <div class="col-md">
                 <table class="table table-striped table-hover">
                     <caption>Players ♦ {{ number_format($players->total(), 0, ",", ".") }} results</caption>
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col" style="width: 5%">#</th>
-                        <th scope="col" style="width: 5%"></th>
-                        <th scope="col" style="width: 5%"></th>
-                        <th scope="col" style="width: 5%"></th>
-                        <th scope="col" style="width: 45%">Name</th>
-                        <th scope="col" style="width: 10%">Rating</th>
-                        <th scope="col" style="width: 10%">Position</th>
-                        <th scope="col" style="width: 15%">Type</th>
-                    </tr>
-                    </thead>
                     <tbody>
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="5%">
+                    <col width="45%">
+                    <col width="10%">
+                    <col width="10%">
+                    <col width="15%">
                     @for($i = 0; $i < count($players); $i++)
                         <tr>
                             <th class="align-middle" scope="row">
