@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row text-center align-items-center">
             <div class="col-md-2 mb-3">
-                <img src="https://orig00.deviantart.net/83ea/f/2018/162/6/f/fifa_19___icon_by_blagoicons-dce2z9b.png" class="card-img-top">
+                <img src="https://lh3.googleusercontent.com/0OkazSaeKunzFw09BhD2zdEdOeavQcT9ejfkq1jl9fgTeuIjL6OMGnQvq-rrhxtpsCM=s180-rw" class="card-img-top">
             </div>
             <div class="col-md-8 mb-3">
                 <h1 class="display-4">Welcome</h1>

@@ -1,5 +1,7 @@
 <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark" role="navigation">
-    <a class="navbar-brand" href="{{ route('home.index') }}">FIFA 19</a>
+    <a class="navbar-brand" href="{{ route('home.index') }}">
+        <img src="https://lh3.googleusercontent.com/0OkazSaeKunzFw09BhD2zdEdOeavQcT9ejfkq1jl9fgTeuIjL6OMGnQvq-rrhxtpsCM=s180-rw" width="30" height="30">
+    </a>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li class="nav-item"><a class="nav-link" href="{{ route('players.index') }}">Players</a></li>
