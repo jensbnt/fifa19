@@ -50,7 +50,7 @@
                             <div class="row">
                                 <div class="col-md-7"><b>Total contributions:</b></div>
                                 <div class="col-md-4 text-right">
-                                    <span style="color: {{ $player->total_ctr < 0.5 ? "#ff0000" : $player->total_ctr < 1 ? "#ffa500" : "#2ca02c" }};">{{ isset($player->total_ctr) ? number_format($player->total_ctr, 3, ",", ".") : "-" }}</span>
+                                    <span style="color: {{ $player->total_ctr < 0.5 ? "#ff0000" : ($player->total_ctr < 1 ? "#ffa500" : "#2ca02c") }};">{{ isset($player->total_ctr) ? number_format($player->total_ctr, 3, ",", ".") : "-" }}</span>
                                 </div>
                             </div>
                         @endif

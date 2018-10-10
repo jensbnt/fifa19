@@ -79,7 +79,7 @@
                             <td>{{ number_format($player->goals, 0, ",", ".") }}</td>
                             <td>{{ number_format($player->assists, 0, ",", ".") }}</td>
                             <td>
-                                <span style="color: {{ $player->ctr < 0.5 ? "#ff0000" : $player->ctr < 1 ? "#ffa500" : "#2ca02c" }};">{{ isset($player->ctr) ? number_format($player->ctr, 3, ",", ".") : "-" }}</span>
+                                <span style="color: {{ $player->ctr < 0.5 ? "#ff0000" : ($player->ctr < 1 ? "#ffa500" : "#2ca02c") }};">{{ isset($player->ctr) ? number_format($player->ctr, 3, ",", ".") : "-" }}</span>
                             </td>
                         </tr>
                     @endforeach

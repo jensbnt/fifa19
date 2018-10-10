@@ -73,7 +73,7 @@
                             <td class="align-middle">{{ number_format($players[$i]->goals, 0, ",", ".") }}</td>
                             <td class="align-middle">{{ number_format($players[$i]->assists, 0, ",", ".") }}</td>
                             <td class="align-middle">
-                                <span style="color: {{ $players[$i]->ctr < 0.5 ? "#ff0000" : $players[$i]->ctr < 1 ? "#ffa500" : "#2ca02c" }};">{{ isset($players[$i]->ctr) ? number_format($players[$i]->ctr, 3, ",", ".") : "-" }}</span>
+                                <span style="color: {{ $players[$i]->ctr < 0.5 ? "#ff0000" : ($players[$i]->ctr < 1 ? "#ffa500" : "#2ca02c") }};">{{ isset($players[$i]->ctr) ? number_format($players[$i]->ctr, 3, ",", ".") : "-" }}</span>
                             </td>
                         </tr>
                     @endfor
