@@ -15,7 +15,6 @@ class HomeController extends Controller
     {
         /* Set starting values */
         $paginate = 30;
-        $limit = 30;
 
         /* Make query */
         if (!$request->has('sort') || $request->input('sort') == "m") {
@@ -47,10 +46,9 @@ class HomeController extends Controller
         /* Get players */
         $players = $query->orderBy('ctr', 'desc')
             ->orderBy('name', 'asc')
-            ->limit($limit)
             ->paginate($paginate);
 
-        return view('home.index', ['players' => $players]);
+        return view('home.index', ['players' => $players->appends($request->except('page'))]);
     }
 
     /** HOME ABOUT */
