@@ -13,10 +13,17 @@
 
 /** HOME */
 
-Route::get('', [
-    'uses' => 'HomeController@getHomeIndex',
-    'as' => 'home.index'
-]);
+Route::group([], function () {
+    Route::get('', [
+        'uses' => 'HomeController@getHomeIndex',
+        'as' => 'home.index'
+    ]);
+
+    Route::get('about', [
+        'uses' => 'HomeController@getHomeAbout',
+        'as' => 'home.about'
+    ]);
+});
 
 /** PLAYERS */
 
@@ -186,17 +193,6 @@ Route::group(['prefix' => 'create'], function () {
     Route::get('', [
         'uses' => 'HomeController@getCreateIndex',
         'as' => 'create.index'
-    ]);
-});
-
-/** STATS */
-
-Route::group(['prefix' => 'stats'], function () {
-    // INDEX
-
-    Route::get('', [
-        'uses' => 'HomeController@getStatsIndex',
-        'as' => 'stats.index'
     ]);
 });
 

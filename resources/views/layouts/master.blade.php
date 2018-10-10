@@ -25,9 +25,5 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 </body>
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">© 2018 Copyright: <a href="mailto:jens_beernaert@hotmail.com"> jens_beernaert@hotmail.com</a></span>
-    </div>
-</footer>
+@include('partials.footer')
 </html>

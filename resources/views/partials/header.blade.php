@@ -10,7 +10,7 @@
             <li class="nav-item"><a class="nav-link" href="{{ route('create.index') }}">Create</a></li>
         </ul>
         <ul class="nav navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="{{ route('stats.index') }}">Stats</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('home.about') }}">About</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ route('backup.index') }}">Backup</a></li>
         </ul>
     </div>
