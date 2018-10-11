@@ -98,7 +98,7 @@
                                 {{ number_format(($players->currentPage() - 1) * $players->perPage()  + $i + 1, 0, ",", ".") }}
                             </th>
                             <td class="align-middle">
-                                @if($players[$i]->teamplayer_count > 0)
+                                @if(count($players[$i]->teamPlayers) > 0)
                                     <span class="badge badge-warning">Team</span>
                                 @endif
                             </td>

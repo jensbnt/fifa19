@@ -20,9 +20,12 @@ class PlayerController extends Controller
         $paginate = 30;
 
         /* Make query */
-        $query = Player::select('players.*', DB::raw("COUNT(team_players.id) AS teamplayer_count"))
-            ->leftJoin('team_players', 'players.id', 'team_players.player_id')
-            ->groupBy('players.id');
+        if ($request->input('display') == "t") {
+            $query = TeamPlayer::select('players.*')
+                ->join('players', 'team_players.player_id', '=', 'players.id');
+        } else {
+            $query = Player::select('players.*');
+        }
 
         if ($request->input('name') != "")
             $query->where('name', 'LIKE', "%" . $request->input('name') . "%");
@@ -51,19 +54,6 @@ class PlayerController extends Controller
                 break;
             default:
                 $query->orderBy('rating', 'desc');
-                break;
-        }
-
-        switch ($request->input('display')) {
-            case 't':
-                $query->whereIn('players.id', function ($subquery) {
-                    $subquery->select('players.id')
-                        ->from('players')
-                        ->rightJoin('team_players', 'players.id', 'team_players.player_id')
-                        ->groupBy('players.id');
-                });
-                break;
-            default:
                 break;
         }
 
