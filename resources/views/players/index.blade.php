@@ -81,7 +81,7 @@
         </form>
         <div class="row">
             <div class="col-md">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover bg-table">
                     <caption>Players ♦ {{ number_format($players->total(), 0, ",", ".") }} results</caption>
                     <tbody>
                     <col width="5%">

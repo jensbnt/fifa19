@@ -1,6 +1,9 @@
 html {
     position: relative;
     min-height: 100%;
+
+    /* Always show navbar */
+    overflow-y: scroll;
 }
 
 body {
@@ -37,4 +40,14 @@ textarea {
 
 .btn-group-flex>.btn {
     flex:1;
+}
+
+.abs-center-x {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bg-table {
+    background-color: #ffffff;
 }

@@ -53,7 +53,7 @@
         </div>
         <div class="row">
             <div class="col-md">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover bg-table">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col" style="width: 25%">Name</th>
