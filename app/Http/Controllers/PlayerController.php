@@ -5,10 +5,8 @@ namespace App\Http\Controllers;
 use App\Player;
 use App\Team;
 use App\TeamPlayer;
-use App\Trade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Mockery\Exception;
 
 class PlayerController extends Controller
 {
@@ -77,8 +75,7 @@ class PlayerController extends Controller
     public function getPlayersView($id)
     {
         $player = Player::leftJoin('team_players', 'players.id', 'team_players.player_id')
-            ->leftJoin('trades', 'players.id', 'trades.player_id')
-            ->select('players.*', DB::raw("SUM(team_players.games) as total_games, SUM(team_players.goals) as total_goals, SUM(team_players.assists) as total_assists, (SUM(team_players.goals) + SUM(team_players.assists)) / SUM(team_players.games) as total_ctr, SUM(trades.buy_price) as total_buy, SUM(trades.sell_price) as total_sell, (SUM(trades.sell_price) * 0.95) - SUM(trades.buy_price) as total_profit"))
+            ->select('players.*', DB::raw("SUM(team_players.games) as total_games, SUM(team_players.goals) as total_goals, SUM(team_players.assists) as total_assists, (SUM(team_players.goals) + SUM(team_players.assists)) / SUM(team_players.games) as total_ctr"))
             ->groupBy('players.id')
             ->where('players.id', '=', $id)
             ->first();
@@ -90,19 +87,13 @@ class PlayerController extends Controller
 
         $teams = Team::all();
 
-        $trades = Trade::select('*', DB::raw("sell_price * 0.95 - buy_price AS profit"))
-            ->where('player_id', $id)
-            ->get();
-
-        return view('players.view', ['player' => $player, 'teams' => $teams, 'trades' => $trades]);
+        return view('players.view', ['player' => $player, 'teams' => $teams]);
     }
 
     public function postPlayersView($id, Request $request)
     {
         if ($request->has('teamid')) {
             return $this->addToTeam($id, $request);
-        } else if ($request->has('buy_price')) {
-            return $this->addTrade($id, $request);
         } else if ($request->has('delete')) {
             return $this->deletePlayer($id);
         } else {
@@ -137,23 +128,6 @@ class PlayerController extends Controller
         $teamplayer->save();
 
         return redirect()->route('players.view', ['id' => $playerid])->with('info', $player->name . " added to " . $team->name);
-    }
-
-    private function addTrade($playerid, $request)
-    {
-        $this->validate($request, [
-            'buy_price' => 'required',
-            'sell_price' => 'required',
-        ]);
-
-        $trade = new Trade([
-            'player_id' => $playerid,
-            'buy_price' => $request->input('buy_price'),
-            'sell_price' => $request->input('sell_price'),
-        ]);
-        $trade->save();
-
-        return redirect()->route('players.view', ['id' => $playerid])->with('info', "New trade created");
     }
 
     private function deletePlayer($id)

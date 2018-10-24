@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Player;
 use App\Team;
 use App\TeamPlayer;
-use App\Trade;
 use Illuminate\Http\Request;
 
 class BackupController extends Controller
@@ -29,8 +28,6 @@ class BackupController extends Controller
             return $this->postBackupTeams();
         } else if ($request->has('backup-teamplayers')) {
             return $this->postBackupTeamplayers();
-        } else if ($request->has('backup-trades')) {
-            return $this->postBackupTrades();
         } else if ($request->has('restore-all')) {
             return $this->postRestoreAll();
         } else if ($request->has('restore-players')) {
@@ -39,8 +36,6 @@ class BackupController extends Controller
             return $this->postRestoreTeams();
         } else if ($request->has('restore-teamplayers')) {
             return $this->postRestoreTeamplayers();
-        } else if ($request->has('restore-trades')) {
-            return $this->postRestoreTrades();
         }
 
         ini_set('max_execution_time', -1);
@@ -53,7 +48,6 @@ class BackupController extends Controller
         $this->backupPlayers();
         $this->backupTeams();
         $this->backupTeamplayers();
-        $this->backupTrades();
 
         return redirect()->route('backup.index')->with('info', "Backup complete ♦ All");
     }
@@ -79,13 +73,6 @@ class BackupController extends Controller
         return redirect()->route('backup.index')->with('info', "Backup complete ♦ Teamplayers");
     }
 
-    public function postBackupTrades()
-    {
-        $this->backupTrades();
-
-        return redirect()->route('backup.index')->with('info', "Backup complete ♦ Trades");
-    }
-
     /** POST RESTORE FUNCTIONS */
 
     public function postRestoreAll()
@@ -93,7 +80,6 @@ class BackupController extends Controller
         $this->restorePlayers();
         $this->restoreTeams();
         $this->restoreTeamplayers();
-        $this->restoreTrades();
 
         return redirect()->route('backup.index')->with('info', "Restore complete ♦ All");
     }
@@ -119,13 +105,6 @@ class BackupController extends Controller
         return redirect()->route('backup.index')->with('info', "Restore complete ♦ Teamplayers");
     }
 
-    public function postRestoreTrades()
-    {
-        $this->restoreTrades();
-
-        return redirect()->route('backup.index')->with('info', "Restore complete ♦ Trades");
-    }
-
     /** BACKUP FUNCTIONS */
 
     public function backupPlayers()
@@ -147,13 +126,6 @@ class BackupController extends Controller
         $file = public_path() . "/json/teamplayer-backup.json";
         $teamplayers = TeamPlayer::all();
         file_put_contents($file, json_encode($teamplayers));
-    }
-
-    public function backupTrades()
-    {
-        $file = public_path() . "/json/trade-backup.json";
-        $trades = Trade::all();
-        file_put_contents($file, json_encode($trades));
     }
 
     /** RESTORE FUNCTIONS */
@@ -227,28 +199,6 @@ class BackupController extends Controller
                 'games' => $item->games,
             ]);
             $teamplayer->save();
-        }
-    }
-
-    public function restoreTrades()
-    {
-        $file = public_path() . "/json/trade-backup.json";
-        if (!file_exists($file)) {
-            return false;
-        }
-        Trade::truncate();
-
-        $json = json_decode(file_get_contents($file));
-        foreach ($json as $item) {
-            $trade = new Trade([
-                'id' => $item->id,
-                'created_at' => $item->created_at,
-                'updated_at' => $item->updated_at,
-                'player_id' => $item->player_id,
-                'buy_price' => $item->buy_price,
-                'sell_price' => $item->sell_price,
-            ]);
-            $trade->save();
         }
     }
 }

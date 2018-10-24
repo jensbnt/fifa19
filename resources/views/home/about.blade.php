@@ -28,6 +28,7 @@
                                 <span class="text-muted">Release: 17/09/2018</span>
                             </div>
                             <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><b>v2.2</b> - Removed trade section</li>
                                 <li class="list-group-item"><b>v2.1</b> - Home page & about page update</li>
                                 <li class="list-group-item"><b>v2.0</b> - Website redesign, ready for FIFA 19</li>
                             </ul>
