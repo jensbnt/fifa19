@@ -20,7 +20,8 @@ class PlayerController extends Controller
         /* Make query */
         if ($request->input('display') == "t") {
             $query = TeamPlayer::select('players.*')
-                ->join('players', 'team_players.player_id', '=', 'players.id');
+                ->join('players', 'team_players.player_id', '=', 'players.id')
+                ->groupBy('players.id');
         } else {
             $query = Player::select('players.*');
         }
