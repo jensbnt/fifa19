@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="col-md-2">
-                            <button type="submit" class="btn btn-dark btn-block">
+                            <button type="submit" class="btn btn-primary btn-block">
                                 Sort
                             </button>
                         </div>
@@ -53,7 +53,7 @@
         </div>
         <div class="row">
             <div class="col-md">
-                <table class="table table-striped table-hover bg-table">
+                <table class="table table-striped table-hover">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col" style="width: 25%">Name</th>
@@ -100,7 +100,7 @@
                                 <label class="form-control" for="">Add new game</label>
                             </div>
                             <div class="col-md-4">
-                                <a href="{{ route('teams.game', ['id' => $team->id]) }}" class="btn btn-dark btn-block">Start</a>
+                                <a href="{{ route('teams.game', ['id' => $team->id]) }}" class="btn btn-primary btn-block">Start</a>
                             </div>
                         </div>
                     </div>
@@ -126,7 +126,7 @@
                                 </div>
 
                                 <div class="col-md-4">
-                                    <button type="submit" class="btn btn-dark btn-block">Delete player</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Delete player</button>
                                 </div>
                             </div>
                         </form>
@@ -134,7 +134,7 @@
                         <div class="form-row">
                             <div class="col-md-6">
                                 <a href="{{ route('teams.edit', ['id' => $team->id]) }}"
-                                   class="btn btn-primary btn-block">Edit</a>
+                                   class="btn btn-info btn-block">Edit</a>
                             </div>
                             <div class="col-md-6">
                                 <a href="" class="btn btn-danger btn-block" data-toggle="modal"

@@ -6,8 +6,11 @@
     <link rel="shortcut icon" type="image/png"
           href="https://lh3.googleusercontent.com/0OkazSaeKunzFw09BhD2zdEdOeavQcT9ejfkq1jl9fgTeuIjL6OMGnQvq-rrhxtpsCM=s180-rw"/>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    @if(Cookie::has('nightmode') && Cookie::get('nightmode'))
+        <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
+    @else
+        <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    @endif
     <link rel="stylesheet" href="{{ URL::to('css/app.css') }}">
 
     <title>FIFA 19</title>

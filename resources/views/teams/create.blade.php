@@ -50,12 +50,12 @@
                             <!-- BUTTONS -->
                             <div class="form-row form-group">
                                 <div class="col-md-4 offset-md-3">
-                                    <button type="submit" class="btn btn-dark btn-block">
+                                    <button type="submit" class="btn btn-primary btn-block">
                                         Save
                                     </button>
                                 </div>
                                 <div class="col-md-4 offset-md-1">
-                                    <a href="{{ route('create.index') }}"
+                                    <a href="{{ route('home.index') }}"
                                        class="btn btn-danger btn-block">Cancel</a>
                                 </div>
                             </div>

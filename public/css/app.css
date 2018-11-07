@@ -9,10 +9,6 @@ html {
 body {
     /* Margin bottom by footer height */
     margin-bottom: 60px;
-
-    background-image: url("../images/background.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
 nav {
@@ -44,8 +40,4 @@ textarea {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-}
-
-.bg-table {
-    background-color: #ffffff;
 }

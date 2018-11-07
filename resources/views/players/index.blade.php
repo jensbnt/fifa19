@@ -81,7 +81,7 @@
         </form>
         <div class="row">
             <div class="col-md">
-                <table class="table table-striped table-hover bg-table">
+                <table class="table table-striped table-hover">
                     <caption>Players ♦ {{ number_format($players->total(), 0, ",", ".") }} results</caption>
                     <tbody>
                     <col width="5%">
@@ -99,7 +99,7 @@
                             </th>
                             <td class="align-middle">
                                 @if(count($players[$i]->teamPlayers) > 0)
-                                    <span class="badge badge-warning">Team</span>
+                                    <span class="badge badge-success">Team</span>
                                 @endif
                             </td>
                             <td class="align-middle">

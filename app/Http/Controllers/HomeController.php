@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Player;
 use App\TeamPlayer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -58,10 +59,14 @@ class HomeController extends Controller
         return view('home.about');
     }
 
-    /** CREATE INDEX */
+    /** TOGGLE  */
+    public function postToggleNightmode(Request $request) {
+        if(Cookie::has('nightmode') && Cookie::get('nightmode')) {
+            Cookie::queue('nightmode', false, 99999);
+        } else {
+            Cookie::queue('nightmode', true, 99999);
+        }
 
-    public function getCreateIndex()
-    {
-        return view('create.index');
+        return redirect()->back();
     }
 }

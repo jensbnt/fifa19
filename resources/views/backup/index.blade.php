@@ -29,14 +29,14 @@
                                 <form method="POST" action="{{ route('backup.index') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="backup-all">
-                                    <button type="submit" class="btn btn-success btn-block">Backup</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Backup</button>
                                 </form>
                             </div>
                             <div class="col-md-6">
                                 <form method="POST" action="{{ route('backup.index') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="restore-all">
-                                    <button type="submit" class="btn btn-primary btn-block">Restore</button>
+                                    <button type="submit" class="btn btn-info btn-block">Restore</button>
                                 </form>
                             </div>
                         </div>
@@ -62,14 +62,14 @@
                                 <form method="POST" action="{{ route('backup.index') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="backup-players">
-                                    <button type="submit" class="btn btn-success btn-block">Backup</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Backup</button>
                                 </form>
                             </div>
                             <div class="col-md-6">
                                 <form method="POST" action="{{ route('backup.index') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="restore-players">
-                                    <button type="submit" class="btn btn-primary btn-block">Restore</button>
+                                    <button type="submit" class="btn btn-info btn-block">Restore</button>
                                 </form>
                             </div>
                         </div>
@@ -94,14 +94,14 @@
                                 <form method="POST" action="{{ route('backup.index') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="backup-teams">
-                                    <button type="submit" class="btn btn-success btn-block">Backup</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Backup</button>
                                 </form>
                             </div>
                             <div class="col-md-6">
                                 <form method="POST" action="{{ route('backup.index') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="restore-teams">
-                                    <button type="submit" class="btn btn-primary btn-block">Restore</button>
+                                    <button type="submit" class="btn btn-info btn-block">Restore</button>
                                 </form>
                             </div>
                         </div>
@@ -126,14 +126,14 @@
                                 <form method="POST" action="{{ route('backup.index') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="backup-teamplayers">
-                                    <button type="submit" class="btn btn-success btn-block">Backup</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Backup</button>
                                 </form>
                             </div>
                             <div class="col-md-6">
                                 <form method="POST" action="{{ route('backup.index') }}">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="restore-teamplayers">
-                                    <button type="submit" class="btn btn-primary btn-block">Restore</button>
+                                    <button type="submit" class="btn btn-info btn-block">Restore</button>
                                 </form>
                             </div>
                         </div>

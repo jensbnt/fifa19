@@ -23,6 +23,11 @@ Route::group([], function () {
         'uses' => 'HomeController@getHomeAbout',
         'as' => 'home.about'
     ]);
+
+    Route::post('nightmode', [
+        'uses' => 'HomeController@postToggleNightmode',
+        'as' => 'nightmode'
+    ]);
 });
 
 /** PLAYERS */
@@ -152,17 +157,6 @@ Route::group(['prefix' => 'teams'], function () {
     Route::post('view/{id}/game', [
         'uses' => 'TeamController@postTeamGameView',
         'as' => 'teams.game'
-    ]);
-});
-
-/** CREATE */
-
-Route::group(['prefix' => 'create'], function () {
-    // INDEX
-
-    Route::get('', [
-        'uses' => 'HomeController@getCreateIndex',
-        'as' => 'create.index'
     ]);
 });
 

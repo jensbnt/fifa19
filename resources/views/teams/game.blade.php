@@ -45,7 +45,7 @@
                         <!-- BUTTONS -->
                             <div class="form-row form-group">
                                 <div class="col-md-4 offset-md-4">
-                                    <button type="submit" class="btn btn-dark btn-block">
+                                    <button type="submit" class="btn btn-primary btn-block">
                                         Save
                                     </button>
                                 </div>
