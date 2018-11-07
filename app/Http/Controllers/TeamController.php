@@ -30,7 +30,7 @@ class TeamController extends Controller
 
         if ($team == null) {
             $error = "No team with this id";
-            return view('home.error', ['error' => $error]);
+            return view('errors.404', ['error' => $error]);
         }
 
         /* Make query */
@@ -94,7 +94,7 @@ class TeamController extends Controller
 
         if ($team == null) {
             $error = "No team with this id";
-            return view('home.error', ['error' => $error]);
+            return view('errors.404', ['error' => $error]);
         }
 
         return view('teams.edit', ['team' => $team]);
@@ -150,7 +150,7 @@ class TeamController extends Controller
 
         if ($teamplayer == null) {
             $error = "No teamplayer with this id";
-            return view('home.error', ['error' => $error]);
+            return view('errors.404', ['error' => $error]);
         }
 
         return view('teams.player', ['teamplayer' => $teamplayer]);
@@ -181,7 +181,7 @@ class TeamController extends Controller
 
         if ($team == null) {
             $error = "No team with this id";
-            return view('home.error', ['error' => $error]);
+            return view('errors.404', ['error' => $error]);
         }
 
         return view('teams.game', ['team' => $team]);

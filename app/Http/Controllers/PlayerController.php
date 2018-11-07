@@ -83,7 +83,7 @@ class PlayerController extends Controller
 
         if ($player == null) {
             $error = "No player with this id";
-            return view('home.error', ['error' => $error]);
+            return view('errors.404', ['error' => $error]);
         }
 
         $teams = Team::all();
@@ -147,6 +147,11 @@ class PlayerController extends Controller
     {
         $player = Player::find($id);
 
+        if ($player == null) {
+            $error = "No player with this id";
+            return view('errors.404', ['error' => $error]);
+        }
+
         return view('players.edit', ['player' => $player]);
     }
 
@@ -163,11 +168,6 @@ class PlayerController extends Controller
         ]);
 
         $player = Player::find($id);
-
-        if ($player == null) {
-            $error = "No player with this id";
-            return view('home.error', ['error' => $error]);
-        }
 
         $player->name = $request->input('name');
         $player->rating = $request->input('rating');
